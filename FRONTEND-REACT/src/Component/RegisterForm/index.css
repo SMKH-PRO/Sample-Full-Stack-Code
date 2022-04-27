@@ -1,0 +1,45 @@
+.formItems {
+    margin: 6px 0px !important;
+
+}
+
+.halfInputLeft {
+
+    margin-right: 6px !important;
+
+}
+
+.halfInputRight {
+
+    margin-left: 6px !important;
+
+}
+
+
+.inputUSFLAG{
+    margin-top:17px;
+}
+
+.formContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.formContainerChild {
+    max-width: 400px;
+    min-width: 250px;
+}
+
+.formSubmit {
+    margin-top: 30px !important;
+    box-shadow: none !important;
+    height: 60px;
+}
+
+@media only screen and (min-width: 600px) {
+    .formContainer {
+        min-height: 70vh;
+    }
+}

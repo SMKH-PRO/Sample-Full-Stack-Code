@@ -1,0 +1,45 @@
+.successIconTextDiv {
+    display: flex;
+}
+
+.successMainIconDiv {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.thanksH3 {
+    margin: 0px
+}
+
+.successP {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 21px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.thanksH3 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 29px;
+    font-weight: bold;
+}
+
+.thanksDiv {
+    margin-left: 14px;
+}
+
+.mainIconDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (min-width: 600px) {
+    .successMainDiv {
+        padding-top: 20px;
+    }
+}
