@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
-  Button, CircularProgress, IconButton, InputAdornment, InputProps, TextFieldProps,
+  Button, CircularProgress, IconButton, InputAdornment, TextFieldProps,
 } from '@mui/material';
 import { useFormik } from 'formik';
-import { FormEvent, ReactNode, useContext } from 'react';
+import { ReactNode, useContext } from 'react';
 import InputMask, { Props } from 'react-input-mask';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,6 @@ import { UserContext } from '../../Utils/ContextAPI';
 import Input from '../Input';
 import './index.css';
 import { capitalize, phoneRegExp } from '../../Utils/Constants';
-import USFlag from '../Svgs/USFlag';
 import InputWithIcon from '../Input/InputWithIcon';
 import { apiRegistration } from '../../Utils/Helpers';
 
@@ -42,8 +41,8 @@ const validationSchema = yup.object({
 });
 
 const RegisterForm = () => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const { state, dispatch } = useContext(UserContext);
+  const { enqueueSnackbar } = useSnackbar();
+  const { dispatch } = useContext(UserContext);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -167,10 +166,8 @@ const RegisterForm = () => {
                     </IconButton>
                   </InputAdornment>
                 )
-
               ,
             }}
-  
             label="Password"
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
