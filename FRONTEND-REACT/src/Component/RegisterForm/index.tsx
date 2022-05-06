@@ -170,20 +170,7 @@ const RegisterForm = () => {
 
               ,
             }}
-            // endAdornment={
-            //   (
-            //     <InputAdornment position="end">
-            //       <IconButton
-            //         aria-label="toggle password visibility"
-            //         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            //         onClick={() => setValue('showPassword', !formik.values.showPassword)}
-            //         edge="end"
-            //       >
-            //         {formik.values.showPassword ? <VisibilityOff /> : <Visibility />}
-            //       </IconButton>
-            //     </InputAdornment>
-            //   )
-            // }
+  
             label="Password"
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
