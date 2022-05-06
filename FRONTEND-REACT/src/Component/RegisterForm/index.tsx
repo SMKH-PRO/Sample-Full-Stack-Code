@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
-  Button, CircularProgress, InputProps, TextFieldProps,
+  Button, CircularProgress, IconButton, InputAdornment, InputProps, TextFieldProps,
 } from '@mui/material';
 import { useFormik } from 'formik';
 import { FormEvent, ReactNode, useContext } from 'react';
@@ -9,6 +9,8 @@ import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { UserContext } from '../../Utils/ContextAPI';
 import Input from '../Input';
 import './index.css';
@@ -23,6 +25,7 @@ interface Values {
   phone: string;
   email: string;
   password: string;
+  showPassword: boolean;
 }
 
 const validationSchema = yup.object({
@@ -50,6 +53,7 @@ const RegisterForm = () => {
       phone: '',
       email: '',
       password: '',
+      showPassword: false,
     } as Values,
     validationSchema,
     onSubmit: async (values) => {
@@ -80,6 +84,10 @@ const RegisterForm = () => {
       {...innerProps}
     />
   );
+  const setValue = async (key: string, value: any) => {
+    await formik.setFieldValue(key, value);
+  };
+
   return (
     <div className="formContainer">
       <div className="formContainerChild">
@@ -143,6 +151,39 @@ const RegisterForm = () => {
             name="password"
             fullWidth
             className="formItems"
+            type={formik.values.showPassword ? 'text' : 'password'}
+            InputProps={{
+              disableUnderline: true,
+              endAdornment:
+                (
+                  <InputAdornment position="end">
+                    <IconButton
+                      className="passwordEye"
+                      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                      onClick={() => setValue('showPassword', !formik.values.showPassword)}
+                      edge="end"
+                    >
+                      {formik.values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+
+              ,
+            }}
+            // endAdornment={
+            //   (
+            //     <InputAdornment position="end">
+            //       <IconButton
+            //         aria-label="toggle password visibility"
+            //         // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            //         onClick={() => setValue('showPassword', !formik.values.showPassword)}
+            //         edge="end"
+            //       >
+            //         {formik.values.showPassword ? <VisibilityOff /> : <Visibility />}
+            //       </IconButton>
+            //     </InputAdornment>
+            //   )
+            // }
             label="Password"
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
