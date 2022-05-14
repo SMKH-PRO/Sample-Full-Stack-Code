@@ -43,3 +43,7 @@
         min-height: 70vh;
     }
 }
+
+.passwordEye{
+    margin-right: 1px !important;
+}

@@ -1,19 +1,20 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
-  Button, CircularProgress, InputProps, TextFieldProps,
+  Button, CircularProgress, IconButton, InputAdornment, TextFieldProps,
 } from '@mui/material';
 import { useFormik } from 'formik';
-import { FormEvent, ReactNode, useContext } from 'react';
+import { ReactNode, useContext } from 'react';
 import InputMask, { Props } from 'react-input-mask';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { UserContext } from '../../Utils/ContextAPI';
 import Input from '../Input';
 import './index.css';
 import { capitalize, phoneRegExp } from '../../Utils/Constants';
-import USFlag from '../Svgs/USFlag';
 import InputWithIcon from '../Input/InputWithIcon';
 import { apiRegistration } from '../../Utils/Helpers';
 
@@ -23,6 +24,7 @@ interface Values {
   phone: string;
   email: string;
   password: string;
+  showPassword: boolean;
 }
 
 const validationSchema = yup.object({
@@ -39,8 +41,8 @@ const validationSchema = yup.object({
 });
 
 const RegisterForm = () => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const { state, dispatch } = useContext(UserContext);
+  const { enqueueSnackbar } = useSnackbar();
+  const { dispatch } = useContext(UserContext);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -50,6 +52,7 @@ const RegisterForm = () => {
       phone: '',
       email: '',
       password: '',
+      showPassword: false,
     } as Values,
     validationSchema,
     onSubmit: async (values) => {
@@ -80,6 +83,10 @@ const RegisterForm = () => {
       {...innerProps}
     />
   );
+  const setValue = async (key: string, value: any) => {
+    await formik.setFieldValue(key, value);
+  };
+
   return (
     <div className="formContainer">
       <div className="formContainerChild">
@@ -143,6 +150,24 @@ const RegisterForm = () => {
             name="password"
             fullWidth
             className="formItems"
+            type={formik.values.showPassword ? 'text' : 'password'}
+            InputProps={{
+              disableUnderline: true,
+              endAdornment:
+                (
+                  <InputAdornment position="end">
+                    <IconButton
+                      className="passwordEye"
+                      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                      onClick={() => setValue('showPassword', !formik.values.showPassword)}
+                      edge="end"
+                    >
+                      {formik.values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              ,
+            }}
             label="Password"
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
